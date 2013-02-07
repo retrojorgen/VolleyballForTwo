@@ -11,9 +11,10 @@ var currentPosition : float;
 function OnCollisionEnter (theCollision : Collision) {
 		if (theCollision.gameObject.name == "Plane") {
 			getNewBall();
-			GameObject.Find("gameBallTrail").gameObject.light.intensity = 0.2;
+			GameObject.Find("gameBallTrail").gameObject.light.intensity = 1;
 			Destroy(gameObject);
 		}
+		
 }
 
 
@@ -31,11 +32,10 @@ function getStartPositionX() {
  
 function keepStable() {
 	this.transform.position.z = -5;
-	Debug.Log("hepp");
 }
 
 function updateGameBallTrail() { 
-	if(currentPosition < transform.position.y && GameObject.Find("gameBallTrail").gameObject.light.intensity != 0) {
+	if(currentPosition < transform.position.y && GameObject.Find("gameBallTrail").gameObject.light.intensity != 0.0) {
 		GameObject.Find("gameBallTrail").gameObject.light.intensity -= 0.01;	
 	}
 	if(currentPosition > transform.position.y) { 
@@ -51,3 +51,4 @@ function Update () {
 	keepStable();
 	currentPosition = transform.position.y;
 }
+
