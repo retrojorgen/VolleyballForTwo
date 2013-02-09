@@ -1,4 +1,5 @@
-var collidePosition = Vector3();
+var collidePosition = Vector3(0,0.8,0.0);
+var previousPositionHack : float = -3.622818;
 
 function OnCollisionEnter (theCollision : Collision) {
 		if(theCollision.gameObject.name == "Plane") {
@@ -16,16 +17,17 @@ function checkLanding(yPosition) {
 	
 }
 
+function Start() {
+	previousPositionHack = -3.622818;
+}
+
 function keepStable() {
-	this.transform.position.z = -5;
-	if(this.transform.position.x > -1.85) {
-		this.transform.position.x = -1.85;
-	}	
+	this.transform.position.z = -5;	
 }
 
 function Update() {
 	keepStable();
-	this.rigidbody.AddForce(Vector3((Input.GetAxis("Horizontal")*600.0)*Time.deltaTime,0,0));
+	this.rigidbody.AddForce(1400*Input.GetAxis("Horizontal")*Time.deltaTime,0,0);
 	if(Input.GetKeyDown("w")) {
 		if(Vector3() != collidePosition) {
 			if(checkLanding(collidePosition.y)) {
@@ -34,7 +36,7 @@ function Update() {
 			}
 		}
 	}
-	transform.rotation.y = 0;
 	transform.rotation.x = 0;
-	transform.rotation.z = 0;
+	transform.rotation.y = 0.8191519;
+	transform.rotation.z = 0;	
 }

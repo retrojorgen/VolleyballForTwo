@@ -1,5 +1,3 @@
-#pragma strict
-
 var thePrefab : GameObject;
 var startPosition : float = 0.0;
 startPosition = transform.position.x;
@@ -12,6 +10,11 @@ function OnCollisionEnter (theCollision : Collision) {
 		if (theCollision.gameObject.name == "Plane") {
 			getNewBall();
 			GameObject.Find("gameBallTrail").gameObject.light.intensity = 1;
+			GameObject.Find("Player1").rigidbody.velocity = Vector3.zero;
+			GameObject.Find("Player1").rigidbody.angularVelocity = Vector3.zero;
+			GameObject.Find("Player2").rigidbody.velocity = Vector3.zero;
+			GameObject.Find("Player2").rigidbody.angularVelocity = Vector3.zero;
+			
 			Destroy(gameObject);
 		}
 		

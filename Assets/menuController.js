@@ -2,29 +2,8 @@ var currentPosition : int = 0;
 var menuItems = new Array ();
 var moveBallCounter = 100;
 static var Winner : String;
-
-class MainConfiguration {
-	var rounds : int;
-	var mode = new Array();
-	var currentGameMode: int = 0;
-	function setRounds(gameRounds : int) {
-		this.rounds = gameRounds;
-	}
-	function setGameMode(gameMode) {
-	}
-	function addGameMode(newGameMode) {
-		this.mode.push(newGameMode);
-	}
-	function getRounds() {
-		return this.rounds;
-	}
-	function getMode() {
-		return this.mode;
-	}
-	function getCurrentGameMode() {
-		return mode[this.currentGameMode];
-	}
-}				
+var player1Name : String = "Player1";
+var player2Name : String = "Player2";
 
 static var configuration = new MainConfiguration();
 
@@ -35,6 +14,8 @@ function getConfiguration () {
 function Start() {
 	menuItems.push(GameObject.Find("SelectGameMode"));
 	menuItems.push(GameObject.Find("SelectRounds"));
+	menuItems.push(GameObject.Find("Player1NameObject"));
+	menuItems.push(GameObject.Find("Player2NameObject"));
 	menuItems.push(GameObject.Find("PlayGame"));
 	configuration.setRounds(21);
 	GameObject.Find("CurrentNumberOfRounds").GetComponent(TextMesh).text = "<" + configuration.getRounds() + ">";
@@ -66,7 +47,7 @@ function moveForwardMenuItem() {
 	menuItems[currentPosition].GetComponent(TextMesh).offsetZ = -3;	
 }
 function checkIfGameCanStart() {
-	if(currentPosition == 2) {
+	if(currentPosition == 4) {
 		Application.LoadLevel("MainGame");
 	}
 }
@@ -90,15 +71,30 @@ function toggleProperty(movement : boolean) {
 		GameObject.Find("CurrentNumberOfRounds").GetComponent(TextMesh).text = "<" + configuration.getRounds() + ">";
 	}
 }
+function toggleText(type : String, playername : String, key : String) {
+	switch(type) {
+		case "Backspace" :
+			return playername.Substring(0,(playername.Length-1));
+		break;
+		case "Key" :
+			return playername + key;
+		default:
+		break;
+	}
+}
 
 function Update () {
 GameObject.Find("BackgroundRoom").transform.rotation.x -= 0.001;
 GameObject.Find("BackgroundRoom").transform.rotation.y -= 0.003;
+//GameObject.Find("player1NameObject").GetComponent(TextMesh).text = configuration.getPlayer1Name();
+//GameObject.Find("player2NameObject").GetComponent(TextMesh).text = configuration.getPlayer2Name();
 
-if(moveBallCounter == 100) {
+if(moveBallCounter == 10) {
 	Debug.Log(moveBallCounter);
 	GameObject.Find("BackgroundRoomBall").rigidbody.AddForce(Vector3(-400.0,-100.0,-100.0));
 	moveBallCounter = 0;
+	GameObject.Find("Player1").rigidbody.AddForce(Vector3(0.0,0.0,-100.0));
+	GameObject.Find("Player2").rigidbody.AddForce(Vector3(0.0,0.0,-100.0));
 }
 moveBallCounter++;
 
@@ -117,7 +113,30 @@ if(Input.anyKeyDown) {
 		}
 		if(Input.GetKeyDown(KeyCode.RightArrow)) {
 			toggleProperty(false);
-		}	
+		}
+		if(currentPosition == 2 || currentPosition == 3) {
+			if(currentPosition == 2) {
+				if(Input.GetKey(KeyCode.Backspace)) {
+					configuration.setPlayer1Name(toggleText("Backspace", configuration.getPlayer1Name(), ""));
+					Debug.Log(configuration.getPlayer1Name());
+				} else {
+					if(Input.inputString != "") {
+						configuration.setPlayer1Name(toggleText("Key", configuration.getPlayer1Name(),Input.inputString));
+					}
+				}
+			} else {
+				if(Input.GetKeyDown(KeyCode.Backspace)) {
+					configuration.setPlayer2Name(toggleText("Backspace", configuration.getPlayer2Name(), ""));
+					Debug.Log(configuration.getPlayer2Name());
+				} else {
+					if(Input.inputString != "") {
+						configuration.setPlayer2Name(toggleText("Key", configuration.getPlayer2Name(),Input.inputString));
+					}
+				}				
+			}
+		}			
 	}
+	GameObject.Find("Player1NameObject").GetComponent(TextMesh).text = configuration.getPlayer1Name();
+	GameObject.Find("Player2NameObject").GetComponent(TextMesh).text = configuration.getPlayer2Name();
 	
 }

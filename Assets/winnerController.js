@@ -1,13 +1,11 @@
 var currentPosition : int = 0;
 var menuItems = new Array ();
-var moveBallCounter = 100;
-				
+var moveBallCounter = 100;				
 
 function Start() {
 	menuItems.push(GameObject.Find("PlayAgain"));
 	menuItems.push(GameObject.Find("ReturnGameToMenu"));
-	Debug.Log(menuController.Winner);
-	GameObject.Find("Winner").GetComponent(TextMesh).text = menuController.Winner;
+	GameObject.Find("Winner").GetComponent(TextMesh).text = menuController.configuration.getWinner() + " with " + menuController.configuration.getWinnerScore();
 }
 
 function movePosition(movement : boolean) {
