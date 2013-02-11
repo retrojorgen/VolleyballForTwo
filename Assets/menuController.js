@@ -56,7 +56,6 @@ function toggleProperty(movement : boolean) {
 	}
 	if (currentPosition == 1) {
 		var rounds : int = configuration.getRounds();
-		Debug.Log(rounds);
 		if(!movement) {
 			rounds++;
 			configuration.setRounds(rounds);
@@ -90,7 +89,6 @@ GameObject.Find("BackgroundRoom").transform.rotation.y -= 0.003;
 //GameObject.Find("player2NameObject").GetComponent(TextMesh).text = configuration.getPlayer2Name();
 
 if(moveBallCounter == 10) {
-	Debug.Log(moveBallCounter);
 	GameObject.Find("BackgroundRoomBall").rigidbody.AddForce(Vector3(-400.0,-100.0,-100.0));
 	moveBallCounter = 0;
 	GameObject.Find("Player1").rigidbody.AddForce(Vector3(0.0,0.0,-100.0));
@@ -118,7 +116,6 @@ if(Input.anyKeyDown) {
 			if(currentPosition == 2) {
 				if(Input.GetKey(KeyCode.Backspace)) {
 					configuration.setPlayer1Name(toggleText("Backspace", configuration.getPlayer1Name(), ""));
-					Debug.Log(configuration.getPlayer1Name());
 				} else {
 					if(Input.inputString != "") {
 						configuration.setPlayer1Name(toggleText("Key", configuration.getPlayer1Name(),Input.inputString));
@@ -127,7 +124,6 @@ if(Input.anyKeyDown) {
 			} else {
 				if(Input.GetKeyDown(KeyCode.Backspace)) {
 					configuration.setPlayer2Name(toggleText("Backspace", configuration.getPlayer2Name(), ""));
-					Debug.Log(configuration.getPlayer2Name());
 				} else {
 					if(Input.inputString != "") {
 						configuration.setPlayer2Name(toggleText("Key", configuration.getPlayer2Name(),Input.inputString));

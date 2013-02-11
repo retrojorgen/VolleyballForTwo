@@ -3,6 +3,7 @@ function Start () {
 	GameObject.Find("Player2Score").guiText.text = "" + menuController.configuration.getPlayer2Score() + "/" + menuController.configuration.getRounds();
 	GameObject.Find("Player1ScoreLabel").guiText.text = "" + menuController.configuration.getPlayer1Name() + " score";
 	GameObject.Find("Player2ScoreLabel").guiText.text = "" + menuController.configuration.getPlayer2Name() + " score";
+	GameObject.Find("NumberOfRounds").guiText.text = "Round " + menuController.configuration.getRoundNumber();
 }
 
 
@@ -18,13 +19,13 @@ function OnCollisionEnter (theCollision : Collision) {
 
 			}
 		}
+		menuController.configuration.incrementRoundNumber();
+		GameObject.Find("NumberOfRounds").guiText.text = "Round " + menuController.configuration.getRoundNumber();
 	}	
 }
 
 function Update () {
-	GameObject.Find("Player1ScoreLabel").guiText.text = "" + menuController.configuration.getPlayer1Name() + " score";
-	menuController.configuration.setPlayer1Name(menuController.configuration.getPlayer1Name());
-
+	
 	if(menuController.configuration.getPlayer1Score() == menuController.configuration.getRounds()) {
 		menuController.configuration.setWinner(menuController.configuration.getPlayer1Name());
 		Application.LoadLevel("WinnerScreen");

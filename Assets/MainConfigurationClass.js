@@ -7,8 +7,15 @@ class MainConfiguration {
 	var player1Score : int = 0;
 	var player2Score : int = 0;
 	var winner : String = "";
+	var roundNumber : int  = 1;
 	function setRounds(gameRounds : int) {
 		this.rounds = gameRounds;
+	}
+	function incrementRoundNumber() {
+		this.roundNumber++;
+	}
+	function getRoundNumber() {
+		return this.roundNumber;
 	}
 	function setGameMode(gameMode : int) {
 	}
