@@ -17,9 +17,21 @@ function Start() {
 		winnerScore = menuController.configuration.getPlayer2Score();
 		Debug.Log("player2");
 	}
-	winnerPercentage = Mathf.Round((winnerScore / numberOfRounds)*100);
-	Debug.Log(winnerPercentage);
+	winnerPercentage = Mathf.Round((((winnerScore*1.0) / (numberOfRounds*1.0)))*100);
 	GameObject.Find("Winner").GetComponent(TextMesh).text = menuController.configuration.getWinner() + " won with " + winnerPercentage + "% of points!";
+
+ 	var form = new WWWForm();
+ 	var tweetString = "Congratulations " + menuController.configuration.getWinner() + ". You won with a staggering " + winnerPercentage + "% of available points"; 
+    Debug.Log(tweetString);
+    form.AddField("tweet", tweetString);
+    var w = WWW("http://www.retrojorgen.com/VolleyballForTwo_backend/api.php?type=tweet", form);
+	yield w;
+ 
+    if(w.error) {
+        print("There was an error getting the data: " + w.error);
+    } else {
+        Debug.Log(w.text);
+    }    
 }
 
 function movePosition(movement : boolean) {
@@ -56,9 +68,6 @@ function checkIfGameCanStart() {
 
 
 function Update () {
-GameObject.Find("BackgroundRoom").transform.rotation.x -= 0.001;
-GameObject.Find("BackgroundRoom").transform.rotation.y -= 0.003;
-
 if(moveBallCounter == 100) {
 	GameObject.Find("BackgroundRoomBall").rigidbody.AddForce(Vector3(-400.0,-100.0,-100.0));
 	moveBallCounter = 0;

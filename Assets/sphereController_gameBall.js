@@ -48,7 +48,7 @@ function updateGameBallTrail() {
 
 function Update () {
 	updateGameBallTrail();
-	GameObject.Find("MainCamera").gameObject.transform.position.x = transform.position.x * 0.2;
+	//GameObject.Find("MainCamera").gameObject.transform.position.x = transform.position.x * 0.1;
 	GameObject.Find("gameBallTrail").gameObject.transform.position.x = transform.position.x;
 	GameObject.Find("GameLight").gameObject.transform.position.x = transform.position.x * 0.4;
 	keepStable();

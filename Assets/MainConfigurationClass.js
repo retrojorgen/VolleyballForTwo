@@ -2,8 +2,8 @@ class MainConfiguration {
 	var rounds : int;
 	var mode = new Array();
 	var currentGameMode: int = 0;
-	var player1Name : String = "Player1";
-	var player2Name : String = "Player2";
+	var player1Name : String = "@Player1";
+	var player2Name : String = "@Player2";
 	var player1Score : int = 0;
 	var player2Score : int = 0;
 	var winner : String = "";

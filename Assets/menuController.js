@@ -2,8 +2,8 @@ var currentPosition : int = 0;
 var menuItems = new Array ();
 var moveBallCounter = 100;
 static var Winner : String;
-var player1Name : String = "Player1";
-var player2Name : String = "Player2";
+var player1Name : String = "@Player1";
+var player2Name : String = "@Player2";
 
 static var configuration = new MainConfiguration();
 
@@ -12,16 +12,17 @@ function getConfiguration () {
 }
 
 function Start() {
-	menuItems.push(GameObject.Find("SelectGameMode"));
-	menuItems.push(GameObject.Find("SelectRounds"));
-	menuItems.push(GameObject.Find("Player1NameObject"));
-	menuItems.push(GameObject.Find("Player2NameObject"));
-	menuItems.push(GameObject.Find("PlayGame"));
+	menuItems.push(GameObject.Find("Titles").transform.Find("SelectGameMode"));
+	menuItems.push(GameObject.Find("Titles").transform.Find("SelectRounds"));
+	menuItems.push(GameObject.Find("Titles").transform.Find("Player1NameObject"));
+	menuItems.push(GameObject.Find("Titles").transform.Find("Player2NameObject"));
+	menuItems.push(GameObject.Find("Titles").transform.Find("PlayGame"));
 	configuration.setRounds(21);
-	GameObject.Find("CurrentNumberOfRounds").GetComponent(TextMesh).text = "<" + configuration.getRounds() + ">";
-	GameObject.Find("CurrentGameMode").GetComponent(TextMesh).text = "<" + configuration.getCurrentGameMode() + ">";
+	GameObject.Find("Titles").transform.Find("CurrentNumberOfRounds").GetComponent(TextMesh).text = "<" + configuration.getRounds() + ">";
+	GameObject.Find("Titles").transform.Find("CurrentGameMode").GetComponent(TextMesh).text = "<" + configuration.getCurrentGameMode() + ">";
 	configuration.addGameMode("Classic");
-	
+
+		
 }
 
 function movePosition(movement : boolean) {
@@ -73,7 +74,7 @@ function toggleProperty(movement : boolean) {
 function toggleText(type : String, playername : String, key : String) {
 	switch(type) {
 		case "Backspace" :
-			return playername.Substring(0,(playername.Length-1));
+			return "@" + playername.Substring(1,(playername.Length-2));
 		break;
 		case "Key" :
 			return playername + key;
@@ -82,19 +83,30 @@ function toggleText(type : String, playername : String, key : String) {
 	}
 }
 
+function moveCamera() {
+	switch(this.currentPosition) {
+		case 0 :
+			GameObject.Find("Titles").transform.position = Vector3(24.63529,21.92498,-25.61917);
+			break;		
+		case 1 :
+			break;
+		case 2 :
+			break;
+		case 3 :
+			break;
+		case 4 :
+			break;
+		default :
+			break;		
+	}
+}
+
 function Update () {
-GameObject.Find("BackgroundRoom").transform.rotation.x -= 0.001;
-GameObject.Find("BackgroundRoom").transform.rotation.y -= 0.003;
+moveCamera();
+GameObject.Find("MainCamera").transform.rotation.y -= 0.0000000001;
+GameObject.Find("MainCamera").transform.position.x -= 0.0000000001;
 //GameObject.Find("player1NameObject").GetComponent(TextMesh).text = configuration.getPlayer1Name();
 //GameObject.Find("player2NameObject").GetComponent(TextMesh).text = configuration.getPlayer2Name();
-
-if(moveBallCounter == 10) {
-	GameObject.Find("BackgroundRoomBall").rigidbody.AddForce(Vector3(-400.0,-100.0,-100.0));
-	moveBallCounter = 0;
-	GameObject.Find("Player1").rigidbody.AddForce(Vector3(0.0,0.0,-100.0));
-	GameObject.Find("Player2").rigidbody.AddForce(Vector3(0.0,0.0,-100.0));
-}
-moveBallCounter++;
 
 if(Input.anyKeyDown) {
 		if(Input.GetKeyDown(KeyCode.UpArrow)) {
@@ -132,7 +144,8 @@ if(Input.anyKeyDown) {
 			}
 		}			
 	}
-	GameObject.Find("Player1NameObject").GetComponent(TextMesh).text = configuration.getPlayer1Name();
-	GameObject.Find("Player2NameObject").GetComponent(TextMesh).text = configuration.getPlayer2Name();
-	
+	GameObject.Find("Titles").transform.Find("Player1NameObject").GetComponent(TextMesh).text = configuration.getPlayer1Name();
+	GameObject.Find("Titles").transform.Find("Player2NameObject").GetComponent(TextMesh).text = configuration.getPlayer2Name();
+	var childcount = GameObject.Find("Titles").transform.childCount;
+	Debug.Log(childcount);
 }
