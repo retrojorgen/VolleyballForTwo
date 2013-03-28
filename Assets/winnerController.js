@@ -3,10 +3,11 @@ var menuItems = new Array ();
 var moveBallCounter = 100;
 var winnerPercentage : float;
 var winnerScore : float;
-var numberOfRounds : float = (menuController.configuration.getRoundNumber() - 1) + 0.0;
+var numberOfRounds : float;
 
 
 function Start() {
+ 	numberOfRounds = (menuController.configuration.getRoundNumber() - 1) + 0.0;
 	menuItems.push(GameObject.Find("PlayAgain"));
 	menuItems.push(GameObject.Find("ReturnGameToMenu"));
 

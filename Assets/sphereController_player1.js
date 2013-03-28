@@ -31,7 +31,7 @@ function Update() {
 	if(Input.GetKeyDown("w")) {
 		if(Vector3() != collidePosition) {
 			if(checkLanding(collidePosition.y)) {
-				this.rigidbody.AddForce(Vector3(0,15000.0*Time.deltaTime,0));
+				this.rigidbody.AddForce(Vector3(0,25000.0*Time.deltaTime,0));
 				//this.transform.Translate(-0.1,0,0);
 			}
 		}
