@@ -3,6 +3,7 @@ var startPosition : float = 0.0;
 startPosition = transform.position.x;
 var toWhichPlayer = "right";
 var currentPosition : float;
+var paused : boolean = false;
 
 
 
@@ -26,10 +27,10 @@ function getNewBall() {
 }
 
 function getStartPositionX() {
-	if (startPosition == -1.75) {
-		return -1.85;
+	if (startPosition == -1.65) {
+		return -1.95;
 	} else {
-		return -1.75;
+		return -1.65;
 	}
 }
  
@@ -53,5 +54,25 @@ function Update () {
 	GameObject.Find("GameLight").gameObject.transform.position.x = transform.position.x * 0.4;
 	keepStable();
 	currentPosition = transform.position.y;
+	if(Input.GetKeyDown("p")) {
+		Time.timeScale = 0;
+		GameObject.Find("Paused1").transform.position.x = 0.5;
+		GameObject.Find("Paused2").transform.position.x = 0.5;
+		paused = true;
+	}
+	if(paused) {
+		if(Input.GetKeyDown(KeyCode.C)) {
+			Time.timeScale = 1;
+			GameObject.Find("Paused1").transform.position.x = 40;
+			GameObject.Find("Paused2").transform.position.x = 40;
+			paused = false;
+		}
+		if(Input.GetKeyDown(KeyCode.Q)) {
+			 Application.Quit();
+		}
+		if(Input.GetKeyDown(KeyCode.M)) {
+			 Application.LoadLevel("MenuScreen");
+		}
+	}
 }
 

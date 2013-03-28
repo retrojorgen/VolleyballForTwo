@@ -35,7 +35,6 @@ function Update() {
 			}
 		}
 	}
+	transform.rotation.z = 0;
 	transform.rotation.x = 0;
-	transform.rotation.y = 0.8191519;
-	transform.rotation.z = 0;	
 }

@@ -47,7 +47,6 @@
      <Compile Include="Assets\NewBehaviourScript.js" />
      <Compile Include="Assets\menuController.js" />
      <Compile Include="Assets\playerScoreCalculator.js" />
-     <Compile Include="Assets\scenescript.js" />
      <Compile Include="Assets\sphereController_gameBall.js" />
      <Compile Include="Assets\sphereController_player1.js" />
      <Compile Include="Assets\sphereController_player2.js" />
